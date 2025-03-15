@@ -1,0 +1,36 @@
+/.metadata/
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Generated directories
+/bin/
+/build/
+
+# Maven target directory
+/target/
+
+# IntelliJ IDEA specific files
+.idea/
+/*.iml
+
+# Eclipse specific files
+/.settings/
+/.project
+/.classpath
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# Kafka producer/consumer-specific files (if any, like config or temp data)
+/data/
+/config/
+/logs/
