@@ -21,9 +21,11 @@ public class OrderProducer {
 		
 		KafkaProducer<String, Order> producer = new KafkaProducer<>(props);
 		
-		Order order = new Order();
-		order.setProductName("Macbook Pro");
-		order.setQuantity(10);
+//		Order order = new Order();
+//		order.setProductName("Macbook Pro");
+//		order.setQuantity(10);
+		
+		Order order = new Order.Builder("Macbook Pro", 10).build();
 		
 		ProducerRecord<String, Order> producerRecord =  new ProducerRecord<String, Order>("OrderTopic", "MacBook Pro", order);
 		try {
