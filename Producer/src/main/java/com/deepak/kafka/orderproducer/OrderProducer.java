@@ -39,7 +39,7 @@ public class OrderProducer {
 //			System.out.println("Topic:: "+recordMetadata.topic());
 //			System.out.println("TimeStamp:: "+recordMetadata.timestamp());
 			
-			// Async - on completion callback class will be  will be called, method of this class will be called
+			// Async - on completion, method of this callback class will be called
 			producer.send(producerRecord, new OrderCallback());
 		} catch (Exception e) {
 			e.printStackTrace();
