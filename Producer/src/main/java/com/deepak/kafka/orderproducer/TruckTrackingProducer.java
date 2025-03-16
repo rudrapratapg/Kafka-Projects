@@ -11,6 +11,8 @@ import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import com.deepak.kafka.orderproducer.customserializers.TruckTracking;
+
 public class TruckTrackingProducer {
 	
 	public static void checkIfTopicExist(Properties props, String topicName) {
@@ -36,23 +38,32 @@ public class TruckTrackingProducer {
 		Properties props = new Properties();
 		props.setProperty("bootstrap.servers","localhost:9092");
 		props.setProperty("key.serializer", "org.apache.kafka.common.serialization.IntegerSerializer");
-		props.setProperty("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		props.setProperty("value.serializer", "com.deepak.kafka.orderproducer.customserializers.TruckTrackingSerializer");
 		
 		String topicName = "TruckTracking";
 		
 //		key = uniqueID | value= coordinates { latitude , longitude}}
-		KafkaProducer<Integer, String> producer = new KafkaProducer<>(props);
-		ProducerRecord<Integer, String> record1 = new ProducerRecord<Integer, String>(topicName, 1, "28.7041 N,77.1025 E");
-		ProducerRecord<Integer, String> record2 = new ProducerRecord<Integer, String>(topicName, 2, "23.7041 N,67.1025 E");
-		ProducerRecord<Integer, String> record3 = new ProducerRecord<Integer, String>(topicName, 3, "26.7041 N,47.1025 E");
-		ProducerRecord<Integer, String> record4 = new ProducerRecord<Integer, String>(topicName, 4, "27.7041 N,57.1025 E");
-		ProducerRecord<Integer, String> record5 = new ProducerRecord<Integer, String>(topicName, 5, "25.7041 N,17.1025 E");
+		KafkaProducer<Integer, TruckTracking> producer = new KafkaProducer<>(props);
+		TruckTracking truck1 = new TruckTracking.Builder().setUniqueId(1).setLongitude("28.7041 N").setLatitude("77.1025 E").build(); 
+		ProducerRecord<Integer, TruckTracking> record1 = new ProducerRecord<>(topicName, 1, truck1);
 		
-		List<ProducerRecord<Integer, String>> records = Arrays.asList(record1, record2, record3, record4, record5);
+		TruckTracking truck2 = new TruckTracking.Builder().setUniqueId(2).setLongitude("23.7041 N").setLatitude("67.1025 E").build();
+		ProducerRecord<Integer, TruckTracking> record2 = new ProducerRecord<>(topicName, 2, truck2);
+		
+		TruckTracking truck3 = new TruckTracking.Builder().setUniqueId(3).setLongitude("26.7041 N").setLatitude("47.1025 E").build();
+		ProducerRecord<Integer, TruckTracking> record3 = new ProducerRecord<>(topicName, 3, truck3);
+		
+		TruckTracking truck4 = new TruckTracking.Builder().setUniqueId(4).setLongitude("27.7041 N").setLatitude("57.1025 E").build();
+		ProducerRecord<Integer, TruckTracking> record4 = new ProducerRecord<>(topicName, 4, truck4);
+		
+		TruckTracking truck5 = new TruckTracking.Builder().setUniqueId(5).setLongitude("25.7041 N").setLatitude("17.1025 E").build();
+		ProducerRecord<Integer, TruckTracking> record5 = new ProducerRecord<>(topicName, 5, truck5);
+		
+		List<ProducerRecord<Integer, TruckTracking>> records = Arrays.asList(record1, record2, record3, record4, record5);
 		
 		try {
-			checkIfTopicExist(props, topicName);
-			for(ProducerRecord<Integer, String> record : records) {
+//			checkIfTopicExist(props, topicName);
+			for(ProducerRecord<Integer, TruckTracking> record : records) {
 //				Future<RecordMetadata> future = producer.send(record);
 //				RecordMetadata metadata = future.get();
 //				System.out.println("Record sent to partition: " + metadata.partition() + ", offset: " + metadata.offset());
