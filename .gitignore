@@ -11,6 +11,8 @@
 
 # Maven target directory
 /target/
+/Consumer/target
+/Producer/target
 
 # IntelliJ IDEA specific files
 .idea/
